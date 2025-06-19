@@ -1,6 +1,10 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { Inter } from 'next/font/google';
 import ThemeRegistry from './ThemeRegistry';
+import { ThemeModeProvider } from './theme/ThemeModeContext';
+
+const inter = Inter({ subsets: ['latin'] });
 
 export const metadata: Metadata = {
   title: 'TierraViva',
@@ -14,10 +18,12 @@ export default function RootLayout({
 }) {
   return (
     <html lang="es">
-      <body>
-        <ThemeRegistry>
-          {children}
-        </ThemeRegistry>
+      <body className={inter.className}>
+        <ThemeModeProvider>
+          <ThemeRegistry>
+            {children}
+          </ThemeRegistry>
+        </ThemeModeProvider>
       </body>
     </html>
   );

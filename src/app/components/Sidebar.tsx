@@ -10,6 +10,7 @@ import {
   Box,
   Typography,
   Divider,
+  Avatar,
 } from '@mui/material';
 import {
   Dashboard as DashboardIcon,
@@ -20,6 +21,7 @@ import {
   Assessment as AssessmentIcon,
   Settings as SettingsIcon,
   Logout as LogoutIcon,
+  Person as PersonIcon,
 } from '@mui/icons-material';
 import { useRouter, usePathname } from 'next/navigation';
 
@@ -47,15 +49,41 @@ export default function Sidebar() {
         '& .MuiDrawer-paper': {
           width: drawerWidth,
           boxSizing: 'border-box',
-          bgcolor: '#1a237e', // Color azul oscuro
-          color: 'white',
         },
       }}
     >
-      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 1 }}>
-        <Typography variant="h6" component="div" sx={{ flexGrow: 1, color: 'white' }}>
+      <Box sx={{ p: 2, display: 'flex', flexDirection: 'column', gap: 0.5 }}>
+        <Typography variant="h6" component="div" sx={{ color: 'white' }}>
           TierraViva
         </Typography>
+        <Typography variant="subtitle2" sx={{ color: 'rgba(255,255,255,0.7)' }}>
+          Panel del Docente
+        </Typography>
+      </Box>
+      <Box sx={{ p: 2, display: 'flex', alignItems: 'center', gap: 2 }}>
+        <Avatar
+          sx={{
+            bgcolor: 'primary.main',
+            width: 40,
+            height: 40,
+          }}
+        >
+          <PersonIcon />
+        </Avatar>
+        <Box>
+          <Typography
+            variant="subtitle1"
+            sx={{ color: 'white', fontWeight: 500 }}
+          >
+            Profesor
+          </Typography>
+          <Typography
+            variant="body2"
+            sx={{ color: 'rgba(255,255,255,0.7)' }}
+          >
+            Asignatura de Ejemplo
+          </Typography>
+        </Box>
       </Box>
       <Divider sx={{ bgcolor: 'rgba(255,255,255,0.12)' }} />
       <List>
@@ -63,15 +91,9 @@ export default function Sidebar() {
           <ListItem key={item.text} disablePadding>
             <ListItemButton
               onClick={() => router.push(item.path)}
-              sx={{
-                color: 'white',
-                bgcolor: pathname === item.path ? 'rgba(255,255,255,0.12)' : 'transparent',
-                '&:hover': {
-                  bgcolor: 'rgba(255,255,255,0.08)',
-                },
-              }}
+              selected={pathname === item.path}
             >
-              <ListItemIcon sx={{ color: 'white' }}>
+              <ListItemIcon>
                 <item.icon />
               </ListItemIcon>
               <ListItemText primary={item.text} />
@@ -84,30 +106,18 @@ export default function Sidebar() {
       <List>
         <ListItem disablePadding>
           <ListItemButton
-            sx={{
-              color: 'white',
-              '&:hover': {
-                bgcolor: 'rgba(255,255,255,0.08)',
-              },
-            }}
+            onClick={() => router.push('/configuracion')}
+            selected={pathname === '/configuracion'}
           >
-            <ListItemIcon sx={{ color: 'white' }}>
+            <ListItemIcon>
               <SettingsIcon />
             </ListItemIcon>
             <ListItemText primary="Configuración" />
           </ListItemButton>
         </ListItem>
         <ListItem disablePadding>
-          <ListItemButton
-            onClick={() => router.push('/')}
-            sx={{
-              color: 'white',
-              '&:hover': {
-                bgcolor: 'rgba(255,255,255,0.08)',
-              },
-            }}
-          >
-            <ListItemIcon sx={{ color: 'white' }}>
+          <ListItemButton>
+            <ListItemIcon>
               <LogoutIcon />
             </ListItemIcon>
             <ListItemText primary="Cerrar Sesión" />

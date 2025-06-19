@@ -8,6 +8,7 @@ import {
   Notifications as NotificationsIcon,
 } from '@mui/icons-material';
 import { SvgIconComponent } from '@mui/icons-material';
+import ProximasActividades from '@/app/components/ProximasActividades';
 
 interface StatCardProps {
   title: string;
@@ -26,21 +27,22 @@ export default function DashboardPage() {
 
   const StatCard = ({ title, value, icon: Icon, color }: StatCardProps) => (
     <Paper 
-      elevation={2}
+      elevation={0}
       sx={{ 
         p: 3, 
         display: 'flex', 
         alignItems: 'center', 
         bgcolor: 'background.paper',
-        borderRadius: 2
+        borderRadius: 2,
+        boxShadow: '0px 2px 4px rgba(0, 0, 0, 0.05)'
       }}
     >
-      <Box sx={{ mr: 2, bgcolor: color, p: 1, borderRadius: 1 }}>
+      <Box sx={{ mr: 2, bgcolor: color, p: 1.5, borderRadius: 1.5 }}>
         <Icon sx={{ color: 'white' }} />
       </Box>
       <Box>
-        <Typography variant="h6">{value}</Typography>
-        <Typography color="textSecondary" variant="body2">{title}</Typography>
+        <Typography variant="h4" sx={{ mb: 0.5, fontWeight: 600 }}>{value}</Typography>
+        <Typography color="text.secondary" variant="subtitle2">{title}</Typography>
       </Box>
     </Paper>
   );
@@ -67,73 +69,52 @@ export default function DashboardPage() {
   ];
 
   return (
-    <Container maxWidth="lg" sx={{ mt: 4, mb: 4 }}>
-      <Typography variant="h4" sx={{ mb: 4 }}>Panel Principal</Typography>
+    <Container maxWidth="xl" sx={{ py: 4 }}>
       <Grid container spacing={3}>
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard
-            title="Cursos Activos"
-            value={stats.cursosActivos}
-            icon={SchoolIcon}
-            color="#1a237e"
-          />
+        <Grid item xs={12} lg={8}>
+          <Grid container spacing={3}>
+            <Grid item xs={12}>
+              <Typography variant="h5" sx={{ mb: 3 }}>Panel Principal</Typography>
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <StatCard
+                title="Cursos Activos"
+                value={stats.cursosActivos}
+                icon={SchoolIcon}
+                color="primary.main"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <StatCard
+                title="Estudiantes"
+                value={stats.estudiantes}
+                icon={GroupIcon}
+                color="success.main"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <StatCard
+                title="Tareas Pendientes"
+                value={stats.tareasPendientes}
+                icon={AssignmentIcon}
+                color="warning.main"
+              />
+            </Grid>
+            <Grid item xs={12} sm={6} md={3}>
+              <StatCard
+                title="Alertas"
+                value={stats.alertas}
+                icon={NotificationsIcon}
+                color="error.main"
+              />
+            </Grid>
+            {/* Aquí irían más componentes del dashboard */}
+          </Grid>
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard
-            title="Estudiantes"
-            value={stats.estudiantes}
-            icon={GroupIcon}
-            color="#2e7d32"
-          />
+        <Grid item xs={12} lg={4}>
+          <ProximasActividades />
         </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard
-            title="Tareas Pendientes"
-            value={stats.tareasPendientes}
-            icon={AssignmentIcon}
-            color="#ed6c02"
-          />
-        </Grid>
-        <Grid item xs={12} sm={6} md={3}>
-          <StatCard
-            title="Alertas"
-            value={stats.alertas}
-            icon={NotificationsIcon}
-            color="#d32f2f"
-          />
-        </Grid>
-      </Grid>      <Box sx={{ mt: 3 }}>
-        <Paper sx={{ p: 3 }}>
-          <Typography variant="h6" gutterBottom sx={{ mb: 3 }}>
-            Actividades Recientes
-          </Typography>
-          <List>
-            {actividades.map((item, index) => (
-              <ListItem 
-                key={index} 
-                divider={index !== actividades.length - 1}
-                sx={{ px: 2, py: 1.5 }}
-              >
-                <ListItemIcon>
-                  <AssignmentIcon color="primary" />
-                </ListItemIcon>
-                <ListItemText
-                  primary={
-                    <Typography variant="subtitle1">
-                      {item.actividad} - {item.curso}
-                    </Typography>
-                  }
-                  secondary={
-                    <Typography variant="body2" color="text.secondary">
-                      Estado: {item.estado} • Fecha: {item.fecha}
-                    </Typography>
-                  }
-                />
-              </ListItem>
-            ))}
-          </List>
-        </Paper>
-      </Box>
+      </Grid>
     </Container>
   );
 }

@@ -14,10 +14,14 @@ export default function Home() {
   const [password, setPassword] = useState('');
   const router = useRouter();
 
-  const handleLogin = (e: React.FormEvent) => {
+  const handleLogin = async (e: React.FormEvent) => {
     e.preventDefault();
     if (username === 'Profesor' && password === 'Profesor1') {
-      router.push('/dashboard');
+      try {
+        await router.push('/dashboard');
+      } catch (error) {
+        console.error('Error navigating:', error);
+      }
     } else {
       alert('Credenciales incorrectas. Use Profesor/Profesor1 para la demostración.');
     }

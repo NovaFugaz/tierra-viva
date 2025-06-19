@@ -15,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="es">
       <body>
-        <ThemeRegistry>{children}</ThemeRegistry>
+        <ThemeRegistry>
+          {children}
+        </ThemeRegistry>
       </body>
     </html>
   );

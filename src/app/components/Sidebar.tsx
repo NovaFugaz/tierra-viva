@@ -21,7 +21,7 @@ import {
   Settings as SettingsIcon,
   Logout as LogoutIcon,
 } from '@mui/icons-material';
-import { useRouter } from 'next/navigation';
+import { useRouter, usePathname } from 'next/navigation';
 
 const drawerWidth = 240;
 
@@ -36,6 +36,7 @@ const menuItems = [
 
 export default function Sidebar() {
   const router = useRouter();
+  const pathname = usePathname();
 
   return (
     <Drawer
@@ -64,6 +65,7 @@ export default function Sidebar() {
               onClick={() => router.push(item.path)}
               sx={{
                 color: 'white',
+                bgcolor: pathname === item.path ? 'rgba(255,255,255,0.12)' : 'transparent',
                 '&:hover': {
                   bgcolor: 'rgba(255,255,255,0.08)',
                 },
